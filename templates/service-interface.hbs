@@ -1,0 +1,15 @@
+import {
+    Create{{moduleNamePascal}}Dto,
+    GetAll{{moduleName}}Dto,
+} from '../../dtos/{{moduleNameKebab}}';
+import { IGenericService } from '../../interfaces/general/generic-service.interface';
+import { {{moduleNamePascal}}Schema } from '../../modules/database/schema/{{moduleNameKebab}}.schema';
+import { {{moduleNamePascal}} } from '../../entities/{{moduleNameKebab}}.entity';
+
+export interface I{{moduleNamePascal}}Service
+extends IGenericService<{{moduleNamePascal}}, typeof {{moduleNamePascal}}Schema,
+    GetAll{{moduleNamePascal}}Dto,
+    Create{{moduleNamePascal}}Dto,
+    Create{{moduleNamePascal}}Dto> {}
+
+export const I{{moduleNamePascal}}Service = Symbol('I{{moduleNamePascal}}Service');

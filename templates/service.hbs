@@ -1,0 +1,45 @@
+import { FindManyOptions, Like } from 'typeorm';
+import {
+Create{{moduleNamePascal}}Dto,
+GenericService,
+GetAll{{moduleNamePascal}}Dto,
+IGetAllResponseInterface,
+I{{moduleNamePascal}}Repository,
+I{{moduleNamePascal}}Service,
+{{moduleNamePascal}},
+{{moduleNamePascal}}Schema,
+} from '@app/common';
+import { Inject } from '@nestjs/common';
+
+export class {{moduleNamePascal}}Service
+extends GenericService<
+{{moduleNamePascal}},
+typeof {{moduleNamePascal}}Schema,
+GetAll{{moduleNamePascal}}Dto,
+Create{{moduleNamePascal}}Dto,
+Create{{moduleNamePascal}}Dto
+>
+implements I{{moduleNamePascal}}Service
+{
+constructor(
+@Inject(I{{moduleNamePascal}}Repository)
+private readonly {{moduleNameCamel}}Repository: I{{moduleNamePascal}}Repository,
+) {
+super({{moduleNameCamel}}Repository);
+}
+
+async getAll(
+getAllDto: GetAll{{moduleNamePascal}}Dto,
+): Promise<IGetAllResponseInterface<{{moduleNamePascal}}>> {
+    const query: FindManyOptions<{{moduleNamePascal}}> = {
+        where: {},
+        };
+
+        if (getAllDto.searchKey)
+        query.where = {
+        name: Like(`%${getAllDto.searchKey}%`),
+        };
+
+        return super.getAll(getAllDto, query);
+        }
+}

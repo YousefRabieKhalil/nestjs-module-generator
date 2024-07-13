@@ -1,0 +1,28 @@
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import {
+I{{moduleNamePascal}}Repository,
+I{{moduleNamePascal}}Service,
+{{moduleNamePascal}}Schema,
+} from '@app/common';
+import { {{moduleNamePascal}}Repository } from './repositories/{{moduleNameKebab}}.repository';
+import { {{moduleNamePascal}}Service } from './services/{{moduleNameKebab}}.service';
+import { {{moduleNamePascal}}Controller } from './controllers/{{moduleNameKebab}}.controller';
+import { {{moduleNamePascal}}EventSubscriber } from './services/{{moduleNameKebab}}-database-event-listener.service';
+
+@Module({
+    imports: [TypeOrmModule.forFeature([{{moduleNamePascal}}Schema])],
+    controllers: [{{moduleNamePascal}}Controller],
+    providers: [
+        {
+        provide: I{{moduleNamePascal}}Repository,
+        useClass: {{moduleNamePascal}}Repository,
+        },
+        {
+        provide: I{{moduleNamePascal}}Service,
+        useClass: {{moduleNamePascal}}Service,
+        },
+    ],
+    exports: [I{{moduleNamePascal}}Service],
+})
+export class {{moduleNamePascal}}Module {}

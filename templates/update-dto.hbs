@@ -1,0 +1,6 @@
+import { PickType } from '@nestjs/swagger';
+import { {{moduleNamePascal}} } from '../../entities/{{moduleNameKebab}}.entity';
+
+export class Update{{moduleNamePascal}}Dto extends PickType({{moduleNamePascal}}, [
+'action',
+] as const) {}

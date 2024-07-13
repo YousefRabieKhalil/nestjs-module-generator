@@ -1,0 +1,36 @@
+import { Controller, Inject, Logger } from '@nestjs/common';
+import {
+Create{{moduleNamePascal}}sDto,
+GetAll{{moduleNamePascal}}sDto,
+I{{moduleNamePascal}}Service,
+{{moduleNamePascal}},
+{{moduleNamePascal}}Topics,
+SingleIdDto,
+} from '@app/common';
+import { MessagePattern, Payload } from '@nestjs/microservices';
+
+@Controller('{{moduleNameKebab}}')
+export class {{moduleNamePascal}}Controller {
+private readonly logger = new Logger({{moduleNamePascal}}Controller.name);
+
+constructor(
+@Inject(I{{moduleNamePascal}}Service)
+private {{moduleNameCamel}}Service: I{{moduleNamePascal}}Service,
+) {}
+
+@MessagePattern({{moduleNamePascal}}Topics.GET_ALL)
+async getAll(@Payload() getAllDto: GetAll{{moduleNamePascal}}sDto) {
+return await this.{{moduleNameCamel}}Service.getAll(getAllDto);
+}
+
+@MessagePattern({{moduleNamePascal}}Topics.GET_DETAILS)
+async getDetails(@Payload() singleIdDto: SingleIdDto) {
+return await this.{{moduleNameLower}}Service.findOneById(singleIdDto.id);
+}
+
+@MessagePattern({{moduleNamePascal}}Topics.CREATE)
+async create(@Payload() createDto: Create{{moduleNamePascal}}sDto) {
+return await this.{{moduleNameCamel}}Service.create({{moduleNamePascal}}, createDto);
+}
+
+}

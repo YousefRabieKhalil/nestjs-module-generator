@@ -1,0 +1,22 @@
+{
+  "name": "nestjs-module-generator",
+  "version": "1.0.2",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "nest-module:generate": "node index.js"
+  },
+  "bin": {
+    "nestjs-module-generator": "./index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^12.1.0",
+    "fs-extra": "^11.2.0",
+    "handlebars": "^4.7.8",
+    "inquirer": "^10.0.1"
+  }
+}

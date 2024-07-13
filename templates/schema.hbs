@@ -1,0 +1,12 @@
+import { EntitySchema } from 'typeorm';
+import { BaseSchemaProperties } from './base.schema';
+import { {{ModuleName}} } from '../../../entities/{{moduleNameLower}}.entity';
+
+export const {{ModuleName}}Schema = new EntitySchema<{{ModuleName}}>({
+    name: {{ModuleName}}.name,
+    target: {{ModuleName}},
+    tableName: '{{moduleNamePlural}}',
+    columns: {
+        ...BaseSchemaProperties,
+    },
+});

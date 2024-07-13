@@ -1,0 +1,22 @@
+import { Injectable } from '@nestjs/common';
+import {
+GenericRepository,
+I{{moduleNamePascal}}Repository,
+{{moduleNamePascal}},
+{{moduleNamePascal}}Schema,
+} from '@app/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
+@Injectable()
+export class {{moduleNamePascal}}Repository
+extends GenericRepository<{{moduleNamePascal}}, typeof {{moduleNamePascal}}Schema>
+implements I{{moduleNamePascal}}Repository
+{
+constructor(
+@InjectRepository({{moduleNamePascal}}Schema)
+private readonly {{moduleNameCamel}}Repository: Repository<{{moduleNamePascal}}>,
+    ) {
+    super({{moduleNameCamel}}Repository);
+    }
+    }
