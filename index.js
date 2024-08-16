@@ -4,13 +4,14 @@ const path = require('path');
 const Handlebars = require('handlebars');
 const inquirer = require('inquirer');
 
+console.log('NestJS Module Generator CLI');
 
 program
-    .version('1.0.0')
-    .description('NestJS Module Generator')
-    .option('-n, --name <name>', 'Module name')
+    .option('-n, --name <name>', 'Module name (in kebab-case, e.g., membership-plan)')
+    .option('-p, --path <name>', 'Path')
     .parse(process.argv);
 
+console.log('Options:', program.opts());
 const options = program.opts();
 
 
@@ -27,6 +28,7 @@ function toPascalCase(str) {
 }
 
 async function promptForModuleName() {
+    console.log(`Please provide the name of your module. For example, if you want to create a module for users, you can name it 'user'.`)
     const answers = await inquirer.prompt([
         {
             type: 'input',
@@ -43,60 +45,74 @@ async function generateModule() {
     const moduleNameCamel = toCamelCase(moduleNameKebab);
     const moduleNamePascal = toPascalCase(moduleNameKebab);
     const moduleNamePlural = `${moduleNameKebab}s`;
+    const pathDir = options.path || process.cwd();
 
+    console.log(`Creating module ${moduleNameKebab}...`)
     // Define your file structure
     const fileStructure = [
         {
-            path: `./libs/common/src/entities/${moduleNameKebab}.entity.ts`,
+            path: `${pathDir}/libs/common/src/entities/${moduleNameKebab}.entity.ts`,
             template: 'entity.hbs'
         },
         {
-            path: `./libs/common/src/modules/database/schema/${moduleNameKebab}.schema.ts`,
+            path: `${pathDir}/libs/common/src/modules/database/schema/${moduleNameKebab}.schema.ts`,
             template: 'schema.hbs'
         },
         {
-            path: `./libs/common/src/enums/${moduleNameKebab}/${moduleNameKebab}-permission.enum.ts`,
+            path: `${pathDir}/libs/common/src/enums/${moduleNameKebab}/${moduleNameKebab}-permission.enum.ts`,
             template: 'permission-enum.hbs'
         },
         {
-            path: `./libs/common/src/enums/${moduleNameKebab}/${moduleNameKebab}-topics.enum.ts`,
+            path: `${pathDir}/libs/common/src/enums/${moduleNameKebab}/${moduleNameKebab}-topics.enum.ts`,
             template: 'topics-enum.hbs'
         },
         {
-            path: `./libs/common/src/interfaces/${moduleNameKebab}/${moduleNameKebab}-repository.interface.ts`,
+            path: `${pathDir}/libs/common/src/interfaces/${moduleNameKebab}/${moduleNameKebab}-repository.interface.ts`,
             template: 'repository-interface.hbs'
         },
         {
-            path: `./libs/common/src/interfaces/${moduleNameKebab}/${moduleNameKebab}-service.interface.ts`,
+            path: `${pathDir}/libs/common/src/interfaces/${moduleNameKebab}/${moduleNameKebab}-service.interface.ts`,
             template: 'service-interface.hbs'
         },
         {
-            path: `./libs/common/src/dtos/${moduleNameKebab}/create-${moduleNameKebab}.dto.ts`,
+            path: `${pathDir}/libs/common/src/dtos/${moduleNameKebab}/create-${moduleNameKebab}.dto.ts`,
             template: 'create-dto.hbs'
         },
         {
-            path: `./libs/common/src/dtos/${moduleNameKebab}/update-${moduleNameKebab}.dto.ts`,
+            path: `${pathDir}/libs/common/src/dtos/${moduleNameKebab}/update-${moduleNameKebab}.dto.ts`,
             template: 'update-dto.hbs'
         },
         {
-            path: `./libs/common/src/dtos/${moduleNameKebab}/get-all-${moduleNamePlural}.dto.ts`,
+            path: `${pathDir}/libs/common/src/dtos/${moduleNameKebab}/get-all-${moduleNamePlural}.dto.ts`,
             template: 'getAll-dto.hbs'
         },
         {
-            path: `./apps/core/src/modules/${moduleNameKebab}/${moduleNameKebab}.module.ts`,
+            path: `${pathDir}/apps/core/src/modules/${moduleNameKebab}/${moduleNameKebab}.module.ts`,
             template: 'module.hbs'
         },
         {
-            path: `./apps/core/src/modules/${moduleNameKebab}/repositories/${moduleNameKebab}.repository.ts`,
+            path: `${pathDir}/apps/core/src/modules/${moduleNameKebab}/repositories/${moduleNameKebab}.repository.ts`,
             template: 'repository.hbs'
         },
         {
-            path: `./apps/core/src/modules/${moduleNameKebab}/services/${moduleNameKebab}.service.ts`,
+            path: `${pathDir}/apps/core/src/modules/${moduleNameKebab}/services/${moduleNameKebab}.service.ts`,
             template: 'service.hbs'
         },
         {
-            path: `./apps/core/src/modules/${moduleNameKebab}/controllers/${moduleNameKebab}.controller.ts`,
+            path: `${pathDir}/apps/core/src/modules/${moduleNameKebab}/controllers/${moduleNameKebab}.controller.ts`,
             template: 'controller.hbs'
+        },
+        {
+            path: `${pathDir}/apps/gateway/src/modules/${moduleNameKebab}/controllers/${moduleNameKebab}.controller.ts`,
+            template: 'gateway-controller.hbs'
+        },
+        {
+            path: `${pathDir}/apps/gateway/src/modules/${moduleNameKebab}/services/${moduleNameKebab}.service.ts`,
+            template: 'gateway-service.hbs'
+        },
+        {
+            path: `${pathDir}/apps/gateway/src/modules/${moduleNameKebab}/${moduleNameKebab}.module.ts`,
+            template: 'gateway-module.hbs'
         },
     ];
 

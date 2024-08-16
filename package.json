@@ -1,6 +1,6 @@
 {
   "name": "nestjs-module-generator",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,8 +8,9 @@
     "nest-module:generate": "node index.js"
   },
   "bin": {
-    "nestjs-module-generator": "./index.js"
+    "nestjs-module-generator": "./bin/nestjs-module-generator.js"
   },
+  "preferGlobal": true,
   "keywords": [],
   "author": "",
   "license": "ISC",

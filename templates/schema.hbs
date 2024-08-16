@@ -1,10 +1,10 @@
 import { EntitySchema } from 'typeorm';
 import { BaseSchemaProperties } from './base.schema';
-import { {{ModuleName}} } from '../../../entities/{{moduleNameLower}}.entity';
+import { {{ModuleName}} } from '../../../entities/{{moduleNameKebab}}.entity';
 
-export const {{ModuleName}}Schema = new EntitySchema<{{ModuleName}}>({
-    name: {{ModuleName}}.name,
-    target: {{ModuleName}},
+export const {{moduleNamePascal}}Schema = new EntitySchema<{{moduleNamePascal}}>({
+    name: {{moduleNamePascal}}.name,
+    target: {{moduleNamePascal}},
     tableName: '{{moduleNamePlural}}',
     columns: {
         ...BaseSchemaProperties,

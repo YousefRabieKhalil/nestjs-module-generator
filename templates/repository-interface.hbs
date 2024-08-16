@@ -2,7 +2,7 @@ import { IGenericRepository } from '../../interfaces';
 import { {{moduleNamePascal}} } from '../../entities';
 import { {{moduleNamePascal}}Schema } from '../../modules';
 
-export interface IPermissionRepository
+export interface I{{moduleNamePascal}}Repository
 extends IGenericRepository<{{moduleNamePascal}}, typeof {{moduleNamePascal}}Schema> {}
 
 export const I{{moduleNamePascal}}Repository = Symbol('I{{moduleNamePascal}}Repository');

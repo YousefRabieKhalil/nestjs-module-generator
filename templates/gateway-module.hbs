@@ -1,0 +1,18 @@
+import { Module } from '@nestjs/common';
+import {
+MicroserviceCommunicationModule,
+MicroserviceCommunicationTokens,
+} from '@app/common';
+import { {{moduleNamePascal}}Controller } from './controllers/{{moduleNameKebab}}.controller';
+import { {{moduleNamePascal}}Service } from './services/{{moduleNameKebab}}.service';
+
+@Module({
+    imports: [
+        MicroserviceCommunicationModule.forChild(
+            MicroserviceCommunicationTokens.GATEWAY_{{moduleNamePascal}},
+        ),
+    ],
+    controllers: [{{moduleNamePascal}}Controller],
+    providers: [{{moduleNamePascal}}Service],
+})
+export class {{moduleNamePascal}}Module {}

@@ -1,0 +1,52 @@
+import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { ApiBasicAuth, ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { {{moduleNamePascal}}Service } from '../services/{{moduleNameKebab}}.service';
+import {
+Create{{moduleNamePascal}}Dto,
+{{moduleNamePascal}},
+{{moduleNamePascal}}Permission,
+GetAll{{moduleNamePascal}}Dto,
+IGetAllResponseInterface,
+RequirePermission,
+Update{{moduleNamePascal}}Dto,
+} from '@app/common';
+
+@Controller('{{moduleNameKebab}}')
+@ApiTags('{{moduleNamePascal}}')
+@ApiBearerAuth('JwtToken')
+@ApiBasicAuth('ApiKey')
+export class {{moduleNamePascal}}Controller {
+constructor(private {{moduleNameCamel}}Service: {{moduleNamePascal}}Service) {}
+
+// onModuleInit(): any {}
+
+@Get()
+@RequirePermission({{moduleNamePascal}}Permission.GET_ALL)
+async getAll(
+@Query() getAll{{moduleNamePascal}}Dto: GetAll{{moduleNamePascal}}Dto,
+): Promise<IGetAllResponseInterface<{{moduleNamePascal}}[]>> {
+return this.{{moduleNameCamel}}Service.getAll(getAll{{moduleNamePascal}}sDto);
+}
+
+@Get(':id')
+@RequirePermission({{moduleNamePascal}}Permission.GET_DETAILS)
+async getDetails(@Param('id') id: number): Promise<{{moduleNamePascal}}> {
+    return this.{{moduleNameCamel}}Service.getDetails({ id });
+    }
+
+    @Post()
+    @RequirePermission({{moduleNamePascal}}Permission.CREATE)
+    async create(
+    @Body() create{{moduleNamePascal}}Dto: Create{{moduleNamePascal}}Dto,
+    ): Promise<{ id: number }> {
+    return this.{{moduleNameCamel}}Service.create(create{{moduleNamePascal}}Dto);
+    }
+
+    @Put()
+    @RequirePermission({{moduleNamePascal}}Permission.UPDATE)
+    async update(
+    @Body() update{{moduleNamePascal}}Dto: Update{{moduleNamePascal}}Dto,
+    ): Promise<{ id: number }> {
+    return this.{{moduleNameCamel}}Service.update(update{{moduleNamePascal}}Dto);
+    }
+    }

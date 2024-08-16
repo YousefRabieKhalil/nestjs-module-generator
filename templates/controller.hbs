@@ -1,7 +1,8 @@
 import { Controller, Inject, Logger } from '@nestjs/common';
 import {
-Create{{moduleNamePascal}}sDto,
-GetAll{{moduleNamePascal}}sDto,
+Create{{moduleNamePascal}}Dto,
+Update{{moduleNamePascal}}Dto,
+GetAll{{moduleNamePascal}}Dto,
 I{{moduleNamePascal}}Service,
 {{moduleNamePascal}},
 {{moduleNamePascal}}Topics,
@@ -19,18 +20,23 @@ private {{moduleNameCamel}}Service: I{{moduleNamePascal}}Service,
 ) {}
 
 @MessagePattern({{moduleNamePascal}}Topics.GET_ALL)
-async getAll(@Payload() getAllDto: GetAll{{moduleNamePascal}}sDto) {
+async getAll(@Payload() getAllDto: GetAll{{moduleNamePascal}}Dto) {
 return await this.{{moduleNameCamel}}Service.getAll(getAllDto);
 }
 
 @MessagePattern({{moduleNamePascal}}Topics.GET_DETAILS)
 async getDetails(@Payload() singleIdDto: SingleIdDto) {
-return await this.{{moduleNameLower}}Service.findOneById(singleIdDto.id);
+return await this.{{moduleNameCamel}}Service.findOneById(singleIdDto.id);
 }
 
 @MessagePattern({{moduleNamePascal}}Topics.CREATE)
-async create(@Payload() createDto: Create{{moduleNamePascal}}sDto) {
+async create(@Payload() createDto: Create{{moduleNamePascal}}Dto) {
 return await this.{{moduleNameCamel}}Service.create({{moduleNamePascal}}, createDto);
+}
+
+@MessagePattern({{moduleNamePascal}}Topics.UPDATE)
+async update(@Payload() updateDto: Update{{moduleNamePascal}}Dto) {
+return await this.{{moduleNameCamel}}Service.update({{moduleNamePascal}}, updateDto);
 }
 
 }

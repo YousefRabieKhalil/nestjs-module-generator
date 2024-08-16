@@ -1,0 +1,80 @@
+import {
+Inject,
+Injectable,
+Logger,
+OnApplicationShutdown,
+OnModuleInit,
+} from '@nestjs/common';
+import {
+Create{{moduleNamePascal}}Dto,
+{{moduleNamePascal}},
+{{moduleNamePascal}}Topics,
+GetAll{{moduleNamePascal}}Dto,
+IGetAllResponseInterface,
+MicroserviceCommunicationService,
+MicroserviceCommunicationTokens,
+SingleIdDto,
+Update{{moduleNamePascal}}Dto,
+} from '@app/common';
+import { ClientProxy } from '@nestjs/microservices';
+
+@Injectable()
+export class {{moduleNamePascal}}Service implements OnModuleInit, OnApplicationShutdown {
+private readonly logger = new Logger({{moduleNamePascal}}Service.name);
+
+constructor(
+@Inject(MicroserviceCommunicationTokens.GATEWAY_{{moduleNamePascal}})
+private readonly client: ClientProxy,
+private microserviceCommunicationService: MicroserviceCommunicationService,
+) {}
+
+async onApplicationShutdown(signal?: string) {
+await this.client.close();
+}
+
+async onModuleInit() {}
+
+async getAll(getAllDto: GetAll{{moduleNamePascal}}Dto) {
+return await this.microserviceCommunicationService.productAndWaitForResponse<
+GetAll{{moduleNamePascal}}Dto,
+IGetAllResponseInterface<{{moduleNamePascal}}[]>
+>(this.client, {{moduleNamePascal}}Topics.GET_ALL, getAllDto, GetAll{{moduleNamePascal}}Dto);
+}
+
+async create(createDto: Create{{moduleNamePascal}}Dto) {
+const response =
+await this.microserviceCommunicationService.productAndWaitForResponse<
+Create{{moduleNamePascal}}Dto,
+{{moduleNamePascal}}
+>(this.client, {{moduleNamePascal}}Topics.CREATE, createDto, Create{{moduleNamePascal}}Dto);
+return { id: response['id'] };
+}
+
+async getDetails(get{{moduleNamePascal}}DetailsDto: SingleIdDto) {
+return await this.microserviceCommunicationService.productAndWaitForResponse<
+SingleIdDto,
+{{moduleNamePascal}}
+>(
+this.client,
+{{moduleNamePascal}}Topics.GET_DETAILS,
+get{{moduleNamePascal}}DetailsDto,
+SingleIdDto,
+);
+}
+
+async update(userUpdateDto: Update{{moduleNamePascal}}Dto) {
+const response =
+await this.microserviceCommunicationService.productAndWaitForResponse<
+Update{{moduleNamePascal}}Dto,
+{{moduleNamePascal}}
+>(this.client, {{moduleNamePascal}}Topics.UPDATE, userUpdateDto, Update{{moduleNamePascal}}Dto);
+return { id: response['id'] };
+}
+
+async delete(deleteDto: SingleIdDto) {
+await this.microserviceCommunicationService.productAndWaitForResponse<
+SingleIdDto,
+void
+>(this.client, {{moduleNamePascal}}Topics.DELETE, deleteDto, SingleIdDto);
+}
+}
