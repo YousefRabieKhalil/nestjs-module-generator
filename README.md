@@ -1,79 +1,77 @@
+# NestJS Module Generator
 
-# JavaScript CLI Project
-
-This project is a command-line interface (CLI) tool built with JavaScript. It provides functionality for generating various components and modules in a structured format, primarily used in a NestJS environment.
+A command-line tool for generating NestJS modules and related files with ease.
 
 ## Features
 
-- **CLI Tool:** A command-line interface for generating different modules and components.
-- **Template Generation:** Utilizes Handlebars templates to generate files such as controllers, services, DTOs, and more.
-- **NestJS Focused:** Designed to work seamlessly with NestJS projects, following best practices and patterns.
-
-## Project Structure
-
-```
-├── bin/
-│   └── nestjs-module-generator.js  # Entry point for the CLI tool
-├── templates/
-│   ├── controller.hbs              # Template for generating a controller
-│   ├── create-dto.hbs              # Template for generating a Create DTO
-│   ├── entity.hbs                  # Template for generating an entity
-│   ├── gateway-controller.hbs      # Template for generating a Gateway controller
-│   ├── gateway-module.hbs          # Template for generating a Gateway module
-│   ├── gateway-service.hbs         # Template for generating a Gateway service
-│   ├── getAll-dto.hbs              # Template for generating a GetAll DTO
-│   ├── module.hbs                  # Template for generating a module
-│   ├── permission-enum.hbs         # Template for generating a permission enum
-│   ├── repository.hbs              # Template for generating a repository
-│   ├── repository-interface.hbs    # Template for generating a repository interface
-│   ├── schema.hbs                  # Template for generating a schema
-│   ├── service.hbs                 # Template for generating a service
-│   ├── service-interface.hbs       # Template for generating a service interface
-│   ├── topics-enum.hbs             # Template for generating a topics enum
-│   └── update-dto.hbs              # Template for generating an Update DTO
-├── cli.js                          # CLI implementation script
-├── index.js                        # Main entry point of the application
-├── package.json                    # Node.js dependencies and scripts
-└── README.md                       # Project documentation
-```
+- Generate complete NestJS modules with a single command
+- Creates controllers, services, DTOs, entities, and more
+- Uses Handlebars templates for flexible and customizable file generation
+- Interactive command-line interface for easy module creation
 
 ## Installation
 
 1. Clone the repository:
-   ```sh
-   git clone <repository_url>
-   ```
-
+   `git clone https://github.com/yourusername/nestjs-module-generator.git`
 2. Navigate to the project directory:
-   ```sh
-   cd cli_project
-   ```
-
+   `cd nestjs-module-generator`
 3. Install dependencies:
-   ```sh
-   npm install
-   ```
+    `npm install`
+4. Link the package globally (optional):
+    `npm link`
+
 
 ## Usage
 
-To use the CLI tool to generate a module or component:
+To generate a new module, run:
+`nestjs-module-generator`
 
-```sh
-node cli.js <command> <options>
+Or if you haven't linked the package globally:
+
+`node index.js`
+
+
+Follow the prompts to specify your module name and options.
+
+## Generated File Structure
+
+The tool generates the following file structure for each module:
+
+```
+└── libs/common/src/
+    └── entities/
+        └── [module-name].entity.ts
+    └── modules/database/schema/
+        └── [module-name].schema.ts
+    └── enums/[module-name]/
+        ├── [module-name]-permission.enum.ts
+        └── [module-name]-topics.enum.ts
+    └── interfaces/[module-name]/
+        ├── [module-name]-repository.interface.ts
+        └── [module-name]-service.interface.ts
+    └── dtos/[module-name]/
+        ├── create-[module-name].dto.ts
+        ├── update-[module-name].dto.ts
+        └── get-all-[module-names].dto.ts
+└── apps/core/src/modules/[module-name]/
+    └──[module-name].module.ts
+    ├── repositories/
+    │   └── [module-name].repository.ts
+    ├── services/
+    │   └── [module-name].service.ts
+    └── controllers/
+        └── [module-name].controller.ts
+└── apps/gateway/src/modules/[module-name]/
+    ├── [module-name].module.ts
+    ├── services/
+    │   └── [module-name].service.ts
+    └── controllers/
+        └── [module-name].controller.ts
 ```
 
-For example, to generate a new controller:
-```sh
-node cli.js generate controller MyController
-```
+## Customization
 
-## Available Commands
-
-- `generate`: Generate a new module, controller, service, etc.
-    - **Options**:
-        - `controller <name>`: Generates a new controller using the specified name.
-        - `service <name>`: Generates a new service using the specified name.
-        - `module <name>`: Generates a new module using the specified name.
+You can customize the generated files by modifying the Handlebars templates in the `templates/` directory.
 
 ## Contributing
 
@@ -81,4 +79,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+This project is licensed under the ISC License.
